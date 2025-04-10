@@ -52,6 +52,7 @@ Este documento describe los distintos roles disponibles en la plataforma y los p
 ▾ libs/
   ▸ ui/                # Shared UI components (shadcn + Framer)
   ▸ utils/             # Utilities & helpers
+```
 
 ### Este documento describe la solución técnica desarrollada para una aplicación empresarial moderna, diseñada bajo principios de modularidad, escalabilidad y buenas prácticas de desarrollo.
 
