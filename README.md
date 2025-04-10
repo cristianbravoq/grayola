@@ -1,6 +1,6 @@
 # Grayola
 
-✨ Grayola is ready ✨.
+Grayola is ready.
 
 # Roles y Permisos
 
@@ -44,7 +44,7 @@ Este documento describe los distintos roles disponibles en la plataforma y los p
 
 > **Nota:** Los permisos marcados con ✗ indican acciones no permitidas para el rol correspondiente.
 
-# 🚀 Project Board - Technical Overview
+# Project Board - Technical Overview
 
 ```sh
 ▾ apps/
