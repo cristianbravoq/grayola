@@ -40,7 +40,7 @@ export const useProject = () => {
   const fetchAssignedDesigners = async () => {
     try {
       const data = await projectService.getAssignedDesigners();
-      const transformed = data.reduce((acc, curr) => {
+      const transformed = data.reduce((acc: any, curr: any) => {
         if (!acc[curr.project_id]) {
           acc[curr.project_id] = [];
         }
