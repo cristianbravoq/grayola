@@ -1,7 +1,7 @@
 'use client';
 import { useActionState, useState } from 'react';
 import { Button } from '@ui';
-import { Loader2, UploadCloud } from 'lucide-react';
+import { AlertCircle, Loader2, UploadCloud } from 'lucide-react';
 import { createClient } from '../../lib/supabase/client';
 
 // Tipos para el proyecto
@@ -129,104 +129,110 @@ export default function ProjectForm({ editingProject, onSuccess }: ProjectFormPr
   };
 
   return (
-    <div className="max-w-md mx-auto p-8 bg-card rounded-lg shadow-sm border border-border">
-      <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold text-foreground">
-          {editingProject?.id ? 'Editar Proyecto' : 'Crear Nuevo Proyecto'}
-        </h2>
-        <p className="text-muted-foreground mt-2">
-          {editingProject?.id
-            ? 'Actualiza los detalles de tu proyecto' 
-            : 'Completa la información para comenzar'}
-        </p>
+<div className="max-w-md mx-auto p-8 bg-card rounded-lg shadow-sm border border-border">
+  <div className="text-center mb-8">
+    <h2 className="text-2xl font-bold text-foreground">
+      {editingProject?.id ? 'Editar Proyecto' : 'Crear Nuevo Proyecto'}
+    </h2>
+    <p className="text-muted-foreground mt-2">
+      {editingProject?.id
+        ? 'Actualiza los detalles de tu proyecto' 
+        : 'Completa la información para comenzar'}
+    </p>
+  </div>
+
+  {state?.error && (
+    <div className="p-4 mb-6 rounded-md bg-destructive/10 border border-destructive/30 text-destructive-foreground flex items-start gap-3">
+      <AlertCircle className="h-5 w-5 mt-0.5 text-destructive" />
+      <div>
+        <p className="font-medium">Error</p>
+        <p className="text-sm">{state.error}</p>
       </div>
-
-      {state?.error && (
-        <div className="p-4 mb-6 rounded-md border bg-destructive/10 border-destructive/20 text-destructive-foreground">
-          {state.error}
-        </div>
-      )}
-
-      <form action={formAction} className="space-y-5">
-        <input type="hidden" name="id" value={editingProject?.id} />
-
-        <div>
-          <label htmlFor="title" className="block text-sm font-medium text-foreground mb-2">
-            Título del Proyecto *
-          </label>
-          <input
-            id="title"
-            name="title"
-            type="text"
-            defaultValue={editingProject?.title}
-            required
-            minLength={3}
-            className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            placeholder="Nombre del proyecto"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="description" className="block text-sm font-medium text-foreground mb-2">
-            Descripción
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            defaultValue={editingProject?.description || ''}
-            rows={4}
-            className="w-full px-4 py-2.5 rounded-md border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            placeholder="Describe los objetivos y detalles de tu proyecto..."
-          />
-        </div>
-
-        <div>
-          <label htmlFor="files" className="block text-sm font-medium text-foreground mb-2">
-            Archivos {editingProject ? '(Selecciona para reemplazar)' : ''}
-          </label>
-          <div className="flex items-center justify-center w-full">
-            <label htmlFor="files" className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer border-input hover:bg-accent/50 transition-colors">
-              <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                <UploadCloud className="w-8 h-8 mb-3 text-muted-foreground" />
-                <p className="mb-2 text-sm text-muted-foreground">
-                  <span className="font-semibold">Haz clic para subir</span> o arrastra los archivos
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  {files.length > 0 
-                    ? `${files.length} archivo(s) seleccionado(s)` 
-                    : 'PDF, DOC, JPG (Max. 50MB cada uno)'}
-                </p>
-              </div>
-              <input
-                id="files"
-                name="files"
-                type="file"
-                multiple
-                onChange={handleFileChange}
-                className="hidden"
-                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-              />
-            </label>
-          </div>
-        </div>
-
-        <Button
-          type="submit"
-          disabled={isPending}
-          className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 disabled:pointer-events-none transition-colors"
-        >
-          {isPending ? (
-            <>
-              <Loader2 className="animate-spin size-4" />
-              {editingProject ? 'Actualizando...' : 'Creando...'}
-            </>
-          ) : editingProject ? (
-            'Actualizar Proyecto'
-          ) : (
-            'Crear Proyecto'
-          )}
-        </Button>
-      </form>
     </div>
+  )}
+
+  <form action={formAction} className="space-y-5">
+    <input type="hidden" name="id" value={editingProject?.id} />
+
+    <div>
+      <label htmlFor="title" className="block text-sm font-medium text-foreground mb-2">
+        Título del Proyecto *
+      </label>
+      <input
+        id="title"
+        name="title"
+        type="text"
+        defaultValue={editingProject?.title}
+        required
+        minLength={3}
+        className="w-full px-4 py-2.5 rounded-lg border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 transition-colors"
+        placeholder="Nombre del proyecto"
+      />
+    </div>
+
+    <div>
+      <label htmlFor="description" className="block text-sm font-medium text-foreground mb-2">
+        Descripción
+      </label>
+      <textarea
+        id="description"
+        name="description"
+        defaultValue={editingProject?.description || ''}
+        rows={4}
+        className="w-full px-4 py-2.5 rounded-lg border border-input bg-background text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 transition-colors"
+        placeholder="Describe los objetivos y detalles de tu proyecto..."
+      />
+    </div>
+
+    <div>
+      <label htmlFor="files" className="block text-sm font-medium text-foreground mb-2">
+        Archivos {editingProject ? '(Selecciona para reemplazar)' : ''}
+      </label>
+      <div className="flex items-center justify-center w-full">
+        <label htmlFor="files" className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer border-input hover:bg-accent/10 transition-colors group">
+          <div className="flex flex-col items-center justify-center pt-5 pb-6">
+            <UploadCloud className="w-8 h-8 mb-3 text-muted-foreground transition-colors" />
+            <p className="mb-2 text-sm text-muted-foreground transition-colors">
+              <span className="font-semibold">Haz clic para subir</span> o arrastra los archivos
+            </p>
+            <p className="text-xs text-muted-foreground transition-colors">
+              {files.length > 0 
+                ? `${files.length} archivo(s) seleccionado(s)` 
+                : 'PDF, DOC, JPG (Max. 50MB cada uno)'}
+            </p>
+          </div>
+          <input
+            id="files"
+            name="files"
+            type="file"
+            multiple
+            onChange={handleFileChange}
+            className="hidden"
+            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+          />
+        </label>
+      </div>
+    </div>
+
+    <div className="flex gap-3 pt-2">
+      <Button
+        type="submit"
+        disabled={isPending}
+        className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm hover:shadow-primary/20 transition-all"
+      >
+        {isPending ? (
+          <>
+            <Loader2 className="animate-spin h-4 w-4 mr-2" />
+            {editingProject ? 'Actualizando...' : 'Creando...'}
+          </>
+        ) : editingProject ? (
+          'Actualizar Proyecto'
+        ) : (
+          'Crear Proyecto'
+        )}
+      </Button>
+    </div>
+  </form>
+</div>
   );
 }

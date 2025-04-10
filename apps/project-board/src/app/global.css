@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background: -webkit-linear-gradient(
+    90deg,
+    #ffffec,
+    #0aa6ab,
+    #fcfee9
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    90deg,
+    #ffffec,
+    #0aa6ab,
+    #fcfee9
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -11,74 +26,87 @@
 @layer base {
   :root {
     /* Base colors */
-    --background: 120 30% 98%; /* Muy claro verde blanquecino */
-    --foreground: 120 50% 10%; /* Verde muy oscuro casi negro */
-    --card: 0 0% 100%; /* Blanco puro para tarjetas */
-    --card-foreground: 120 50% 10%; 
-    --popover: 0 0% 100%; 
-    --popover-foreground: 120 50% 10%;
-    
-    /* Primary colors */
-    --primary: 158 64% 36%; /* Verde esmeralda más vibrante */
-    --primary-foreground: 0 0% 100%; 
-    --secondary: 120 30% 90%; /* Verde claro secundario */
-    --secondary-foreground: 120 50% 15%;
-    
+    --background: 0 0% 99%;
+    /* F2F2F2 - Gris muy claro */
+    --foreground: 173 80% 10%;
+    /* Texto oscuro para contraste */
+    --card: 0 0% 100%;
+    /* Blanco puro */
+    --card-foreground: 173 80% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 173 80% 10%;
+
+    /* Primary colors - basado en #25D973 */
+    --primary: 149 68% 53%;
+    /* 25D973 - Verde vibrante */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 166 86% 59%;
+    /* 3DF2E0 - Verde azulado claro */
+    --secondary-foreground: 173 80% 15%;
+
     /* Accents & states */
-    --muted: 120 20% 95%; /* Casi blanco con tono verde */
-    --muted-foreground: 120 20% 40%;
-    --accent: 158 60% 40%; /* Versión más clara del primary */
+    --muted: 60 56% 96%;
+    /* F2EFBD - Amarillo claro */
+    --muted-foreground: 166 20% 40%;
+    --accent: 84 89% 53%;
+    /* 9CF21B - Verde lima */
     --accent-foreground: 0 0% 100%;
-    --destructive: 5 82% 55%; /* Rojo coral más moderno */
+    --destructive: 0 64% 60%;
+    /* Rojo para errores */
     --destructive-foreground: 0 0% 100%;
-    
+
     /* UI elements */
-    --border: 120 20% 85%; /* Borde más neutro */
-    --input: 120 20% 95%; 
-    --ring: 158 64% 50%; /* Anillos más vibrantes */
-    
-    /* Chart colors (paleta armonizada) */
-    --chart-1: 158 64% 50%; /* Verde principal */
-    --chart-2: 180 60% 50%; /* Verde azulado */
-    --chart-3: 140 60% 50%; /* Verde amarillento */
-    --chart-4: 100 55% 55%; /* Verde lima */
-    --chart-5: 75 60% 50%; /* Verde amarillo */
-    
+    --border: 166 20% 85%;
+    --input: 166 20% 95%;
+    --ring: 149 68% 60%;
+
+    /* Chart colors (variaciones de la paleta) */
+    --chart-1: 149 68% 53%;
+    /* 25D973 */
+    --chart-2: 166 86% 59%;
+    /* 3DF2E0 */
+    --chart-3: 84 89% 53%;
+    /* 9CF21B */
+    --chart-4: 60 56% 86%;
+    /* F2EFBD más claro */
+    --chart-5: 0 0% 95%;
+    /* F2F2F2 */
+
     /* Radius */
     --radius: 0.5rem;
   }
 
   .dark {
-    /* Dark theme - más profesional y con mejor contraste */
-    --background: 120 30% 8%; /* Fondo oscuro con matiz verde */
-    --foreground: 120 30% 90%; /* Texto verde claro */
-    --card: 120 30% 10%; 
-    --card-foreground: 120 30% 90%;
-    --popover: 120 30% 10%; 
-    --popover-foreground: 120 30% 90%;
-    
-    --primary: 158 64% 40%; /* Más brillante en oscuro */
+    /* Dark theme - versiones oscuras de tus colores */
+    --background: 173 80% 5%;
+    --foreground: 166 86% 90%;
+    --card: 173 80% 8%;
+    --card-foreground: 166 86% 90%;
+    --popover: 173 80% 8%;
+    --popover-foreground: 166 86% 90%;
+
+    --primary: 149 68% 48%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 120 25% 20%; 
-    --secondary-foreground: 120 30% 90%;
-    
-    --muted: 120 20% 15%; 
-    --muted-foreground: 120 20% 70%;
-    --accent: 158 60% 45%; 
+    --secondary: 166 86% 54%;
+    --secondary-foreground: 173 80% 95%;
+
+    --muted: 60 30% 20%;
+    --muted-foreground: 60 56% 70%;
+    --accent: 84 89% 48%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 5 82% 45%; /* Rojo más oscuro */
+    --destructive: 0 84% 55%;
     --destructive-foreground: 0 0% 100%;
-    
-    --border: 120 20% 20%; 
-    --input: 120 20% 15%; 
-    --ring: 158 64% 60%; 
-    
-    /* Charts oscuros - más saturados */
-    --chart-1: 158 64% 55%;
-    --chart-2: 180 60% 55%;
-    --chart-3: 140 60% 55%;
-    --chart-4: 100 55% 60%;
-    --chart-5: 75 60% 55%;
+
+    --border: 173 30% 25%;
+    --input: 173 30% 20%;
+    --ring: 149 68% 65%;
+
+    /* Charts oscuros */
+    --chart-1: 149 68% 58%;
+    --chart-2: 166 86% 64%;
+    --chart-3: 84 89% 58%;
+    --chart-4: 60 30% 30%;
+    --chart-5: 173 30% 25%;
   }
 }
 
@@ -86,81 +114,81 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
   }
 }
 
 @layer base {
   :root {
-    /* Sidebar - más contrastado */
-    --sidebar-background: 0 0% 100%; /* Blanco puro */
-    --sidebar-foreground: 120 50% 10%;
-    --sidebar-primary: 158 64% 36%;
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 173 80% 10%;
+    --sidebar-primary: 149 68% 53%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 120 30% 90%;
-    --sidebar-accent-foreground: 120 50% 15%;
-    --sidebar-border: 120 20% 85%;
-    --sidebar-ring: 158 64% 50%;
+    --sidebar-accent: 166 86% 59%;
+    --sidebar-accent-foreground: 173 80% 15%;
+    --sidebar-border: 166 20% 85%;
+    --sidebar-ring: 149 68% 60%;
   }
 
   .dark {
-    --sidebar-background: 120 30% 10%; /* Coherente con card */
-    --sidebar-foreground: 120 30% 90%;
-    --sidebar-primary: 158 64% 40%;
+    --sidebar-background: 173 80% 8%;
+    --sidebar-foreground: 166 86% 90%;
+    --sidebar-primary: 149 68% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 120 25% 20%;
-    --sidebar-accent-foreground: 120 30% 90%;
-    --sidebar-border: 120 20% 20%;
-    --sidebar-ring: 158 64% 60%;
+    --sidebar-accent: 166 86% 54%;
+    --sidebar-accent-foreground: 173 80% 95%;
+    --sidebar-border: 173 30% 25%;
+    --sidebar-ring: 149 68% 65%;
   }
+}
 
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
 
-  /* Scrollbar styles */
-  ::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-  }
+::-webkit-scrollbar-track {
+  background: hsl(var(--sidebar-background));
+  border-radius: 10px;
+}
 
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--sidebar-background));
-    border-radius: 10px;
-  }
+::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--sidebar-primary));
+  border-radius: 10px;
+  border: 3px solid hsl(var(--sidebar-background));
+}
 
-  ::-webkit-scrollbar-thumb {
-    background-color: hsl(var(--sidebar-primary));
-    border-radius: 10px;
-    border: 3px solid hsl(var(--sidebar-background));
-  }
+::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--sidebar-primary-foreground));
+}
 
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: hsl(var(--sidebar-primary-foreground));
-  }
+::-webkit-scrollbar-corner {
+  background: hsl(var(--sidebar-background));
+}
 
-  ::-webkit-scrollbar-corner {
-    background: hsl(var(--sidebar-background));
-  }
+/* Dark mode scrollbar styles */
+.dark ::-webkit-scrollbar-track {
+  background: hsl(var(--sidebar-background));
+}
 
-  /* Dark mode scrollbar styles */
-  .dark ::-webkit-scrollbar-track {
-    background: hsl(var(--sidebar-background));
-  }
+.dark ::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--sidebar-primary));
+  border: 3px solid hsl(var(--sidebar-background));
+}
 
-  .dark ::-webkit-scrollbar-thumb {
-    background-color: hsl(var(--sidebar-primary));
-    border: 3px solid hsl(var(--sidebar-background));
-  }
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--sidebar-primary-foreground));
+}
 
-  .dark ::-webkit-scrollbar-thumb:hover {
-    background-color: hsl(var(--sidebar-primary-foreground));
-  }
+.dark ::-webkit-scrollbar-corner {
+  background: hsl(var(--sidebar-background));
+}
 
-  .dark ::-webkit-scrollbar-corner {
-    background: hsl(var(--sidebar-background));
-  }
-
-  .dark {
-    scrollbar-color: hsl(var(--sidebar-primary)) hsl(var(--sidebar-background));
-  }
+.dark {
+  scrollbar-color: hsl(var(--sidebar-primary)) hsl(var(--sidebar-background));
 }

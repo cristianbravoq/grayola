@@ -82,7 +82,7 @@ export function DashboardView({ role }: DashboardViewProps) {
   };
 
   return (
-    <div className="w-full bg-background py-8">
+    <div className="w-full bg-green-50 bg-opacity-70 p-6 rounded-lg">
         {renderRoleSpecificContent()}
     </div>
   );

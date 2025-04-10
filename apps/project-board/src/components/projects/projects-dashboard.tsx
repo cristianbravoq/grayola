@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import ProjectForm from './project-form';
 import ProjectList from './project-list';
 import { createClient } from '../../lib/supabase/client';
+import { Button } from '@ui';
+import { Plus } from 'lucide-react';
 
 export default function ProjectsDashboard() {
   const [projects, setProjects] = useState([]);
@@ -14,7 +16,10 @@ export default function ProjectsDashboard() {
   }, []);
 
   const fetchProjects = async () => {
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
     if (authError || !user) return;
 
     const { data, error } = await supabase
@@ -41,35 +46,39 @@ export default function ProjectsDashboard() {
         <div>
           <h1 className="text-2xl font-bold text-foreground">Mis Proyectos</h1>
           <p className="text-muted-foreground mt-1">
-            {projects.length} {projects.length === 1 ? 'proyecto' : 'proyectos'} en total
+            {projects.length} {projects.length === 1 ? 'proyecto' : 'proyectos'}{' '}
+            en total
           </p>
         </div>
-        
+
         {!editingProject && (
-          <button
+          <Button
             onClick={() => setEditingProject({})}
-            className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+            className="px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg transition-colors shadow-sm hover:shadow-primary/30"
           >
+            <Plus className="mr-2 h-4 w-4" />
             Nuevo Proyecto
-          </button>
+          </Button>
         )}
       </div>
 
       {editingProject && (
-          <ProjectForm 
-            editingProject={editingProject} 
+        <div className="bg-popover border border-border rounded-lg p-6 shadow-sm">
+          <ProjectForm
+            editingProject={editingProject}
             onSuccess={() => {
               setEditingProject(null);
               fetchProjects();
-            }} 
+            }}
           />
+        </div>
       )}
 
       <div className="bg-card rounded-lg border border-border shadow-sm p-6">
-        <ProjectList 
-          projects={projects} 
-          onEdit={setEditingProject} 
-          onDelete={handleDelete} 
+        <ProjectList
+          projects={projects}
+          onEdit={setEditingProject}
+          onDelete={handleDelete}
         />
       </div>
     </div>
