@@ -1,7 +1,5 @@
 # Grayola
 
-Grayola is ready.
-
 # Roles y Permisos
 
 Este documento describe los distintos roles disponibles en la plataforma y los permisos asociados a cada uno.
