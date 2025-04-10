@@ -58,7 +58,7 @@ export function UserMenu() {
           .single();
 
         if (!error && roleData?.roles) {
-          setUserRole(roleData.roles.name);
+          throw new Error('Error fetching user role');
         }
       }
     } catch (error) {
