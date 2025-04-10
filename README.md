@@ -44,6 +44,93 @@ Este documento describe los distintos roles disponibles en la plataforma y los p
 
 > **Nota:** Los permisos marcados con ✗ indican acciones no permitidas para el rol correspondiente.
 
+# 🚀 Project Board - Technical Overview
+
+```sh
+▾ apps/
+  ▸ project-board/      # Next.js 14 application
+▾ libs/
+  ▸ ui/                # Shared UI components (shadcn + Framer)
+  ▸ utils/             # Utilities & helpers
+
+### Este documento describe la solución técnica desarrollada para una aplicación empresarial moderna, diseñada bajo principios de modularidad, escalabilidad y buenas prácticas de desarrollo.
+
+---
+
+## Descripción General
+
+La aplicación está construida sobre un monorepo gestionado con [Nx](https://nx.dev), permitiendo la organización y desacoplamiento de funcionalidades en librerías reutilizables.
+
+Se implementa un diseño orientado a componentes, una gestión centralizada del estado y una arquitectura de servicios para separar la lógica de negocio y comunicación con el backend.
+
+El frontend está desarrollado con [Next.js](https://nextjs.org), aprovechando sus capacidades de Server-Side Rendering (SSR), Static Site Generation (SSG) y API Routes.
+
+---
+
+## Arquitectura y Librerías
+
+### Estructura Principal
+
+## Tecnologías Principales
+
+| Tecnología        | Uso en el Proyecto                                          |
+|------------------|-------------------------------------------------------------|
+| Nx               | Monorepo management y boundaries entre librerías            |
+| Next.js          | Framework SSR/SSG y estructura de rutas                     |
+| Tailwind CSS     | Sistema de diseño con estilos utilitarios                   |
+| Shadcn/ui        | Componentes accesibles y customizables                      |
+| Framer Motion    | Animaciones declarativas y transiciones suaves              |
+| Zustand          | Gestión de estado global minimalista                        |
+| Supabase         | Backend-as-a-Service (Auth, Database, Storage)              |
+| ESLint + Prettier| Estilo de código, reglas automáticas y formateo             |
+
+---
+
+## Enfoque de Desarrollo
+
+- La lógica de comunicación con Supabase se encuentra aislada en `libs/services/`.
+- Los hooks personalizados encapsulan las acciones y efectos secundarios de los componentes (`hooks/useProject.ts`, `hooks/useAuth.ts`).
+- Los componentes de UI siguen un diseño desacoplado y reutilizable, con soporte para animaciones y consistencia visual utilizando `Tailwind` y `Shadcn/ui`.
+- Zustand se usa para almacenar estados locales y globales de los módulos (por ejemplo: estados de filtros, paginaciones, usuario autenticado).
+- La estructura de carpetas y la separación por dominio permiten escalar la aplicación sin comprometer la mantenibilidad.
+
+---
+
+## Estilo y Calidad de Código
+
+El proyecto implementa un pipeline de calidad basado en:
+
+- ESLint (Reglas específicas del equipo)
+- Prettier (Formato automático)
+- Convenciones de commits (opcional para futuras integraciones CI/CD)
+- Modularización de código desde el primer commit
+- Buenas prácticas de accesibilidad (a11y) con Shadcn/ui
+
+---
+
+## Objetivo Final
+
+Crear una solución empresarial robusta, flexible y escalable, que permita:
+
+- Crecimiento del equipo sin fricción.
+- Modularización extrema.
+- Reutilización de código compartido.
+- Facilidad de mantenimiento.
+- Escalabilidad futura a micro frontends o nuevas aplicaciones dentro del mismo monorepo.
+
+---
+
+## Próximos Pasos
+
+- Integración de tests unitarios y e2e.
+- Automatización de despliegues.
+- Optimización de performance (lighthouse audits).
+- Internacionalización (i18n).
+- Diseño System evolucionado.
+
+---
+
+
 ## Run tasks
 
 To run the dev server for your app, use:
