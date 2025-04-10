@@ -34,5 +34,5 @@ export default async function Page() {
     return redirect('/error');
   }
 
-  return <DashboardView role={profile.roles.name} id={user.id} />;
+  return <DashboardView role={profile.roles.name} id={user.id} email={user.email!} />;
 }

@@ -12,17 +12,19 @@ import { motion } from 'framer-motion';
 interface DashboardViewProps {
   role: RoleType;
   id: string;
+  email: string;    
 }
 
-export const DashboardView = ({ role, id }: DashboardViewProps) => {
+export const DashboardView = ({ role, id, email}: DashboardViewProps) => {
   const ProjectFormWithPermissions = withPermissionRole(ProjectForm);
   const ProjectListWithPermissions = withPermissionRole(ProjectList);
-  const { setRole, setId } = useUserStore()
+  const { setRole, setId, setEmail } = useUserStore()
 
   useEffect(() => { 
     setRole(role)
     setId(id)
-  }, [role, setRole, setId, id]);
+    setEmail(email)
+  }, [role, setRole, setId, id, setEmail, email]);
 
   return (
     <motion.div 
