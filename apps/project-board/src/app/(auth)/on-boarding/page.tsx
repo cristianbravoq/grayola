@@ -1,11 +1,12 @@
 'use client';
-import { supabase } from "apps/project-board/src/lib/supabase";
+
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import * as z from 'zod';
 import { Loader2 } from 'lucide-react';
+import { createClient } from 'apps/project-board/src/lib/supabase/client';
 
 // Esquema de validación con Zod
 const formSchema = z.object({
@@ -23,6 +24,8 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export default function SignUpForm() {
+
+  const supabase = createClient();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', content: '' });
 

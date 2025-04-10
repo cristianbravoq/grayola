@@ -11,10 +11,13 @@ export default async function Page() {
   const supabase = await createClient();
 
   // Obtener usuario y perfil en una sola consulta
-  const { data: { user }, error: authError } = await supabase.auth.getUser();
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
 
   if (!user || authError) {
-    return redirect("/sign-in");
+    return redirect('/sign-in');
   }
 
   // Obtener el perfil con el rol desde el servidor
@@ -28,10 +31,8 @@ export default async function Page() {
   if (profileError) {
     console.error('Error fetching profile:', profileError);
     // Puedes redirigir a una página de error o retornar un estado por defecto
-    return redirect("/error");
+    return redirect('/error');
   }
 
-  return <DashboardView 
-    role={profile.roles.name} 
-  />;
+  return <DashboardView role={profile.roles.name} id={user.id} />;
 }

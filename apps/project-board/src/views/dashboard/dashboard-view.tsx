@@ -1,89 +1,67 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import ProjectsDashboard from '../../components/projects/projects-dashboard';
+import { containerVariants, itemVariants, RoleType, withPermissionRole } from '@utils';
+import ProjectForm from '../../components/projects/project-form';
+import { ProjectHead } from '../../components/projects/project-head';
+import ProjectList from '../../components/projects/project-list';
+import { useEffect } from 'react';
+import { useUserStore } from '../../store/auth-store';
+import { motion } from 'framer-motion';
 
-type Role = 'manager' | 'client' | 'designer';
 
 interface DashboardViewProps {
-  role: Role;
+  role: RoleType;
+  id: string;
 }
 
-export function DashboardView({ role }: DashboardViewProps) {
-  const router = useRouter();
+export const DashboardView = ({ role, id }: DashboardViewProps) => {
+  const ProjectFormWithPermissions = withPermissionRole(ProjectForm);
+  const ProjectListWithPermissions = withPermissionRole(ProjectList);
+  const { setRole, setId } = useUserStore()
 
-  // Contenido específico por rol
-  const renderRoleSpecificContent = () => {
-    switch (role) {
-      case 'manager':
-        return (
-          <div className="max-w-4xl mx-auto p-6 bg-card rounded-lg shadow-sm border border-border">
-            <ProjectsDashboard />
-          </div>
-        );
-
-      case 'client':
-        return (
-          <div className="bg-green-50 p-6 rounded-lg">
-            <h2 className="text-xl font-semibold text-green-800">
-              Panel de Cliente
-            </h2>
-            <p className="mt-2 text-green-600">
-              Aquí puedes ver el estado de tus proyectos y comunicarte con tu
-              equipo.
-            </p>
-            <button
-              onClick={() => router.push('/my-projects')}
-              className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-            >
-              Ver Mis Proyectos
-            </button>
-          </div>
-        );
-
-      case 'designer':
-        return (
-          <div className="bg-purple-50 p-6 rounded-lg">
-            <h2 className="text-xl font-semibold text-purple-800">
-              Panel de Diseñador
-            </h2>
-            <p className="mt-2 text-purple-600">
-              Accede a los proyectos asignados y envía tus diseños para
-              revisión.
-            </p>
-            <button
-              onClick={() => router.push('/assigned-projects')}
-              className="mt-4 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
-            >
-              Proyectos Asignados
-            </button>
-          </div>
-        );
-
-      default:
-        return (
-          <div className="bg-red-50 p-6 rounded-lg">
-            <h2 className="text-xl font-semibold text-red-800">
-              Rol no reconocido
-            </h2>
-            <p className="mt-2 text-red-600">
-              No tienes asignado un dashboard específico. Contacta al
-              administrador.
-            </p>
-            <button
-              onClick={() => router.push('/sign-in')}
-              className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-            >
-              Cerrar Sesión
-            </button>
-          </div>
-        );
-    }
-  };
+  useEffect(() => { 
+    setRole(role)
+    setId(id)
+  }, [role, setRole, setId, id]);
 
   return (
-    <div className="w-full bg-green-50 bg-opacity-70 p-6 rounded-lg">
-        {renderRoleSpecificContent()}
-    </div>
+    <motion.div 
+      className="w-full bg-green-50 bg-opacity-70 p-6 rounded-lg"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
+      <motion.div 
+        className="max-w-4xl mx-auto p-6 bg-card rounded-lg shadow-sm border border-border"
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+      >
+        <motion.div 
+          className="space-y-8"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div variants={itemVariants}>
+            <ProjectHead />
+          </motion.div>
+
+          <motion.div variants={itemVariants}>
+            <ProjectFormWithPermissions
+              allowedRoles={['client', 'manager']}
+              userRole={role}
+            />
+          </motion.div>
+
+          <motion.div variants={itemVariants}>
+            <ProjectListWithPermissions
+              allowedRoles={['manager', 'designer']}
+              userRole={role}
+            />
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }

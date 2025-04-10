@@ -16,10 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@common": ["libs/common/src/index.ts"],
       "@ui": ["libs/ui/src/index.ts"],
-      "@utils": ["libs/utils/src/index.ts"],
-      // "@project-board": ["apps/project-board/src/*"],
+      "@utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
