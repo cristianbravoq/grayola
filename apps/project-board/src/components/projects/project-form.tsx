@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, useState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import { Button } from '@ui';
 import { containerVariants, fileUploadVariants, formItemVariants, FormStateType, ProjectType } from '@utils';
 import { AlertCircle, Loader2, UploadCloud } from 'lucide-react';
@@ -9,10 +9,18 @@ import { useProject } from './hooks/useProject';
 import { useProjectStore } from '../../store/project-store';
 import { projectService } from '../../services/project-services';
 import { AnimatePresence, motion } from 'framer-motion';
+import { toast } from 'sonner';
 
 export default function ProjectForm() {
   const { fetchProjects } = useProject();
-  const { editingProject, showForm } = useProjectStore();
+  const { editingProject, showForm, setShowForm } = useProjectStore();
+
+  // cuando se desmonta el componente, cerrar el formulario
+  useEffect(() => {
+    return () => {
+      setShowForm(false);
+    };
+  }, [setShowForm]);
 
   const [files, setFiles] = useState<File[]>([]);
   const supabase = createClient();
@@ -64,6 +72,20 @@ export default function ProjectForm() {
         }
 
         fetchProjects();
+        setShowForm(false);
+
+        // Toast de éxito
+        toast.success(
+          editingProject?.id
+            ? 'Proyecto actualizado con éxito'
+            : 'Proyecto creado con éxito'
+        );
+        // Limpiar archivos seleccionados
+        setFiles([]);
+        // Limpiar el formulario
+        formData.delete('title');
+        formData.delete('description');
+        formData.delete('files');
         return { success: true };
       } catch (error) {
         console.error('Error:', error);

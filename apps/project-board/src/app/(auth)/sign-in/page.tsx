@@ -30,8 +30,8 @@ export default function Login() {
       </div>
 
       {error && (
-        <div className="p-4 mb-6 rounded-md border bg-destructive/10 border-destructive/20 text-destructive-foreground">
-          {error}
+        <div className="p-4 mb-6 text-center rounded-md border bg-destructive/10 border-destructive/20 text-muted-foreground">
+          Credenciales incorrectas
         </div>
       )}
 

@@ -39,7 +39,15 @@ export const updateSession = async (request: NextRequest) => {
     // https://supabase.com/docs/guides/auth/server-side/nextjs
     const user = await supabase.auth.getUser();
 
-    console.log("user-------middle", user);
+    // Si el usuario esta autenticado y la ruta es /sign-in redirigir a /dashboard
+    if (user.data.user && request.nextUrl.pathname === "/sign-in") {
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
+
+    // Si el usuario esta autenticado y la ruta es /on-boarding redirigir a /dashboard
+    if (user.data.user && request.nextUrl.pathname === "/on-boarding") {
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
 
     // protected routes
     if (request.nextUrl.pathname.startsWith("/dashboard") && user.error) {

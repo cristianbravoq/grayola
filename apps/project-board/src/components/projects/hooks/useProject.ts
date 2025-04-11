@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { projectService } from 'apps/project-board/src/services/project-services';
 import { useProjectStore } from 'apps/project-board/src/store/project-store';
 import { useUserStore } from 'apps/project-board/src/store/auth-store';
@@ -8,11 +8,14 @@ export const useProject = () => {
   const { setProjects, setAssignedDesigners } = useProjectStore();
   const { role, id } = useUserStore();
 
+  useEffect(() => {
+    fetchProjects();
+    fetchAssignedDesigners();
+  }, []);
+
   const fetchProjects = async () => {
     setLoading(true);
-    try {
-      console.log('Fetching projects with:', { role, userId: id });
-      
+    try {   
       // Solo pasa role y userId si están definidos
       const data = await projectService.getProjects(
         role || undefined, 

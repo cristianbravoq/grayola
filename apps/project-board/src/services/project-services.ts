@@ -7,7 +7,7 @@ export const projectService = {
   getProjects: async (userRole?: 'manager' | 'client' | 'designer', userId?: string) => {
     let query = supabase
       .from('projects')
-      .select('*, project_files(*), project_assignments!inner(*)')
+      .select('*, project_files(*), project_assignments(*)')
       .order('created_at', { ascending: false });
 
     // Filtros según el rol
@@ -21,6 +21,7 @@ export const projectService = {
     // Managers ven todos los proyectos (sin filtro adicional)
 
     const { data, error } = await query;
+
 
     if (error) throw error;
     return data;

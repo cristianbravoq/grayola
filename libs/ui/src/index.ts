@@ -18,6 +18,7 @@ export * from './components/ui/slider';
 export * from './components/ui/submit-button';
 export * from './components/ui/switch';
 export * from './components/ui/theme-switcher';
+export * from './components/ui/toaster';
 export * from './components/ui/tooltip';
 export * from './lib/ui';
 export * from './lib/use-mobile';
